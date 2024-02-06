@@ -1,0 +1,9 @@
+{
+	"name": "policydataadfproject3",
+	"location": "southcentralus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "b70cef27-b81f-4715-af3f-a09cf5f8ee14",
+		"tenantId": "ff355289-721e-4dd7-a663-afec62ab9d54"
+	}
+}

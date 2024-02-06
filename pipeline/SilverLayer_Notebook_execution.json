@@ -1,0 +1,136 @@
+{
+	"name": "SilverLayer_Notebook_execution",
+	"properties": {
+		"activities": [
+			{
+				"name": "Branch_Notebook",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/divya.10683661@ltimindtree.com/SilverLayer-DataLoad/Ingestion-BranchData"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "CustomerNotebook",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Branch_Notebook",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/divya.10683661@ltimindtree.com/SilverLayer-DataLoad/Ingestion-CustomerData"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "agent",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "CustomerNotebook",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/divya.10683661@ltimindtree.com/SilverLayer-DataLoad/Ingestion-AgentData"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Policy",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "agent",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/divya.10683661@ltimindtree.com/SilverLayer-DataLoad/Ingestion-PolicyData"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Claim",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Policy",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/divya.10683661@ltimindtree.com/SilverLayer-DataLoad/Ingestion-ClaimData"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks_LS",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": []
+	}
+}
